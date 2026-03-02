@@ -1,0 +1,59 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Force rebuild to fix stuck/hanging draft preview",
+  "requirements": [
+    {
+      "id": "REQ-18",
+      "summary": "Perform a clean rebuild of the frontend to resolve the draft preview hanging on load, ensuring all previously implemented features are preserved and the app loads successfully after deployment",
+      "acceptanceCriteria": [
+        "The draft/preview URL loads without hanging or indefinite spinner",
+        "The dashboard renders correctly after login",
+        "All previously implemented features (monthly snapshots, asset forms, charts, mock rate fetchers) remain intact",
+        "No console errors blocking initial render"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Review and ensure proper initialization order: QueryClientProvider wraps InternetIdentityProvider wraps App, with correct error boundaries and StrictMode configuration to prevent race conditions during actor initialization"
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Verify the actor initialization logic handles identity changes correctly, properly invalidates queries when actor changes, and includes error handling for failed backend connections that might cause hanging"
+        },
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Review the AuthClient initialization and login flow to ensure no blocking promises or race conditions that could cause the app to hang, verify proper error handling and timeout configurations"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure authentication state checks are non-blocking, add loading states and error boundaries to prevent indefinite spinner if actor or profile queries fail, verify the conditional rendering logic for LoginPage/ProfileSetupPage/Dashboard doesn't create render loops"
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review all React Query hooks (useGetCallerUserProfile, useGetPortfolio, useGetDashboard, useGetMonthlySnapshots) to ensure enabled flags properly handle actor availability, add retry: false or appropriate retry logic, and prevent hanging queries"
+        },
+        {
+          "path": "frontend/src/pages/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Verify data fetching dependencies and loading states are properly handled, ensure the selected month state doesn't cause infinite re-renders, add error boundaries for chart components that might fail to render"
+        },
+        {
+          "path": "frontend/src/components/PortfolioForm.tsx",
+          "operation": "modify",
+          "description": "Review the form submission flow and mock rate fetcher calls to ensure no blocking async operations, verify proper error handling for mutation failures, ensure the form doesn't prevent app initialization"
+        },
+        {
+          "path": "frontend/src/pages/ProfileSetupPage.tsx",
+          "operation": "modify",
+          "description": "Verify the profile setup modal only shows when appropriate conditions are met (isAuthenticated && !profileLoading && isFetched && userProfile === null), prevent flash of profile setup on every load by properly checking isFetched state as documented in the authorization component usage"
+        }
+      ]
+    }
+  ]
+}

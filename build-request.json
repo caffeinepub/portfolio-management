@@ -1,0 +1,39 @@
+{
+  "kind": "build_request",
+  "title": "Force rebuild to fix stuck/hanging draft preview",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-18",
+      "text": "Perform a clean rebuild and redeploy of the entire application (frontend and backend) to resolve the draft preview hanging on load. Ensure all previously implemented features are preserved and the app loads successfully after deployment.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-stuck"
+        ],
+        "quotes": [
+          "tried all 3 steps still it is stuck"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The draft/preview URL loads without hanging or indefinite spinner",
+        "The dashboard renders correctly after login",
+        "All previously implemented features (monthly snapshots, asset forms, charts, mock rate fetchers) remain intact",
+        "No console errors blocking initial render"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not remove or regress any existing features during the rebuild",
+    "Do not modify files listed in frontend.immutablePaths"
+  ],
+  "nonGoals": [
+    "Adding new features in this build",
+    "Changing any data models or backend logic",
+    "Modifying the visual design or layout"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

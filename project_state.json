@@ -1,0 +1,235 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Monthly portfolio tracker web app with per-asset-class monthly tracking, auto-fetched rates for RSU/ESOP (by stock name + qty), gold and silver (by gram with auto rate fetch), rates defaulting to lowest of the month. Includes asset allocation pie chart, total assets/liabilities/net worth dashboard, input fields for Indian equity, US stocks, PF, NPS, gold, silver, FD, home loan, mutual funds, RSU, ESOP, dividend and interest tracking. Each asset class has a growth trend chart over months. Clean minimal professional design with mobile responsive layout.",
+  "architectural_notes": [
+    "Mobile-first responsive layout required throughout",
+    "Indian financial asset categories: Indian equity, US stocks, PF, NPS, gold, FD, mutual funds; Liability: home loan",
+    "Monthly portfolio snapshots: store per-user, per-month records for all asset classes to enable trend tracking",
+    "Auto-fetch lowest-of-month rates for RSU/ESOP (by stock ticker + qty) and gold/silver (per gram) from external APIs",
+    "Silver added as a new asset class alongside gold"
+  ],
+  "known_issues": [
+    "Mock fetched rate for US equity/stocks is inaccurate or outdated",
+    "Draft/preview not loading after deployment — app hangs on load"
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-build-a-portfolio-dashboard-page-that-displays-1-total-assets-sum-of-indian-equity-us-stocks-pf-nps-gold-fd-mutual-funds-dividends-interest-2-total-liabilities-home-loan-and-3-net-worth-total-assets-total-liabilities-all-three-figures-must-update-reactively-when-input-values-change",
+      "title": "Build a Portfolio Dashboard page that displays: (1) Total Assets (sum of Indian Equity + US Stocks + PF + NPS + Gold + FD + Mutual Funds + Dividends + Interest), (2) Total Liabilities (Home Loan), and (3) Net Worth (Total Assets – Total Liabilities). All three figures must update reactively when input values change.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-asset-allocation-pie-chart-that-visually-breaks-down-the-portfolio-by-asset-category-indian-equity-us-stocks-pf-nps-gold-fd-mutual-funds-the-chart-must-update-dynamically-as-values-are-entered-and-display-percentage-labels-per-segment",
+      "title": "Implement an Asset Allocation Pie Chart that visually breaks down the portfolio by asset category (Indian Equity, US Stocks, PF, NPS, Gold, FD, Mutual Funds). The chart must update dynamically as values are entered and display percentage labels per segment.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-asset-liability-input-form-with-clearly-labeled-number-input-fields-for-indian-equity-us-stocks-pf-provident-fund-nps-national-pension-system-gold-fd-fixed-deposit-mutual-funds-and-home-loan-include-a-separate-dividend-interest-tracking-section-with-fields-for-total-dividends-received-and-total-interest-earned-all-fields-should-accept-decimal-numeric-input-and-persist-values-to-the-backend",
+      "title": "Create an Asset & Liability Input Form with clearly labeled number input fields for: Indian Equity, US Stocks, PF (Provident Fund), NPS (National Pension System), Gold, FD (Fixed Deposit), Mutual Funds, and Home Loan. Include a separate Dividend & Interest Tracking section with fields for total dividends received and total interest earned. All fields should accept decimal numeric input and persist values to the backend.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-implement-a-clean-minimal-professional-visual-theme-across-the-entire-app-use-a-neutral-light-background-with-muted-accent-colors-a-clean-sans-serif-typeface-generous-whitespace-and-card-based-layout-for-dashboard-sections-ensure-full-mobile-responsiveness-with-a-single-column-stacked-layout-on-small-screens-and-a-multi-column-grid-on-desktop",
+      "title": "Design and implement a clean, minimal, professional visual theme across the entire app. Use a neutral light background with muted accent colors, a clean sans-serif typeface, generous whitespace, and card-based layout for dashboard sections. Ensure full mobile responsiveness with a single-column stacked layout on small screens and a multi-column grid on desktop.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-clearly-labeled-number-input-fields-for-rsu-restricted-stock-units-and-esop-employee-stock-option-plan-in-the-asset-liability-input-form-portfolioform-tsx-positioned-alongside-the-existing-equity-stock-asset-fields-both-fields-must-accept-decimal-numeric-input-bind-to-the-form-state-and-persist-to-the-backend-on-save",
+      "title": "Add clearly labeled number input fields for RSU (Restricted Stock Units) and ESOP (Employee Stock Option Plan) in the Asset & Liability Input Form (PortfolioForm.tsx), positioned alongside the existing equity/stock asset fields. Both fields must accept decimal numeric input, bind to the form state, and persist to the backend on save.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-asset-allocation-pie-chart-assetallocationchart-tsx-to-include-rsu-and-esop-as-distinct-segments-the-chart-must-reflect-rsu-and-esop-values-dynamically-as-they-are-entered-display-percentage-labels-and-only-show-segments-with-non-zero-values",
+      "title": "Update the Asset Allocation Pie Chart (AssetAllocationChart.tsx) to include RSU and ESOP as distinct segments. The chart must reflect RSU and ESOP values dynamically as they are entered, display percentage labels, and only show segments with non-zero values.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-month-year-selector-ui-e-g-a-month-picker-showing-jan-2025-feb-2025-etc-to-the-dashboard-when-a-month-is-selected-the-input-form-pre-fills-with-that-month-s-saved-values-saving-the-form-upserts-a-monthly-snapshot-via-savemonthlysnapshot-default-to-the-current-month-on-first-load",
+      "title": "Add a month/year selector UI (e.g., a month picker showing 'Jan 2025', 'Feb 2025', etc.) to the dashboard. When a month is selected, the input form pre-fills with that month's saved values. Saving the form upserts a monthly snapshot via `saveMonthlySnapshot`. Default to the current month on first load.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-rsu-and-esop-asset-inputs-replace-the-single-numeric-value-field-with-three-fields-each-stock-name-text-quantity-number-and-rate-number-auto-fetched-lowest-of-month-or-manually-overridable-display-a-computed-value-qty-rate-read-only-next-to-the-inputs-since-live-api-calls-are-not-supported-implement-a-mock-auto-fetch-on-clicking-a-fetch-rate-button-next-to-rsu-esop-stock-name-simulate-a-rate-lookup-by-generating-a-plausible-rate-value-stored-locally-clearly-labeled-as-estimated-rate-store-stockname-qty-rate-and-computed-value-in-the-monthly-snapshot",
+      "title": "For RSU and ESOP asset inputs, replace the single numeric value field with three fields each: stock name (text), quantity (number), and rate (number, auto-fetched lowest-of-month or manually overridable). Display a computed value (qty × rate) read-only next to the inputs. Since live API calls are not supported, implement a mock auto-fetch: on clicking a 'Fetch Rate' button next to RSU/ESOP stock name, simulate a rate lookup by generating a plausible rate value stored locally (clearly labeled as 'Estimated Rate'). Store stockName, qty, rate, and computed value in the monthly snapshot.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-gold-and-silver-asset-inputs-replace-the-single-value-field-with-grams-number-input-and-rate-per-gram-number-auto-fetched-or-manually-overridable-display-a-computed-value-grams-rate-read-only-since-live-api-calls-are-not-supported-implement-a-mock-auto-fetch-on-clicking-a-fetch-rate-button-simulate-a-lowest-of-month-rate-for-gold-inr-per-gram-and-silver-inr-per-gram-using-locally-defined-reference-values-labeled-estimated-rate-store-grams-rate-and-computed-value-in-the-monthly-snapshot",
+      "title": "For gold and silver asset inputs, replace the single value field with: grams (number input) and rate-per-gram (number, auto-fetched or manually overridable). Display a computed value (grams × rate) read-only. Since live API calls are not supported, implement a mock auto-fetch: on clicking a 'Fetch Rate' button, simulate a lowest-of-month rate for gold (INR per gram) and silver (INR per gram) using locally defined reference values, labeled 'Estimated Rate'. Store grams, rate, and computed value in the monthly snapshot.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-per-asset-class-growth-trend-line-charts-to-the-dashboard-for-each-asset-class-indian-equity-us-stocks-pf-nps-gold-silver-fd-mutual-funds-rsu-esop-dividends-interest-render-a-small-sparkline-line-chart-showing-its-value-across-all-saved-monthly-snapshots-x-axis-month-label-like-jan-25-y-axis-inr-value-display-these-charts-in-a-responsive-grid-of-cards-below-the-asset-allocation-pie-chart-only-render-a-chart-for-asset-classes-that-have-at-least-one-non-zero-monthly-data-point",
+      "title": "Add per-asset-class growth trend line charts to the dashboard. For each asset class (Indian Equity, US Stocks, PF, NPS, Gold, Silver, FD, Mutual Funds, RSU, ESOP, Dividends, Interest), render a small sparkline/line chart showing its value across all saved monthly snapshots (x-axis: month label like 'Jan 25', y-axis: INR value). Display these charts in a responsive grid of cards below the asset allocation pie chart. Only render a chart for asset classes that have at least one non-zero monthly data point.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-react-query-hooks-in-usequeries-ts-to-add-usemonthlysnapshots-calls-getmonthlysnapshots-and-usesavemonthlysnapshot-mutation-calling-savemonthlysnapshot-update-dashboard-tsx-to-consume-these-hooks-load-all-snapshots-for-the-trend-charts-and-use-the-selected-month-s-snapshot-to-pre-fill-portfolioform-update-summarycards-tsx-and-the-asset-allocation-chart-to-reflect-the-currently-selected-month-s-values",
+      "title": "Update the React Query hooks in useQueries.ts to add `useMonthlySnapshots` (calls `getMonthlySnapshots`) and `useSaveMonthlySnapshot` (mutation calling `saveMonthlySnapshot`). Update Dashboard.tsx to consume these hooks: load all snapshots for the trend charts, and use the selected month's snapshot to pre-fill PortfolioForm. Update SummaryCards.tsx and the asset allocation chart to reflect the currently selected month's values.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-mock-rate-fetcher-for-gold-in-frontend-src-utils-mockratefetcher-ts-so-that-the-simulated-gold-rate-per-gram-returns-a-plausible-inr-value-current-gold-prices-in-india-are-approximately-6-000-8-500-per-gram-24k-the-mock-generator-must-produce-values-within-this-realistic-range-clearly-labeled-estimated-rate-the-same-fix-should-be-verified-for-silver-which-should-return-approximately-75-110-per-gram",
+      "title": "Fix the mock rate fetcher for gold in `frontend/src/utils/mockRateFetcher.ts` so that the simulated gold rate per gram returns a plausible INR value. Current gold prices in India are approximately ₹6,000–₹8,500 per gram (24K); the mock generator must produce values within this realistic range, clearly labeled 'Estimated Rate'. The same fix should be verified for silver, which should return approximately ₹75–₹110 per gram.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-mock-rate-fetcher-in-frontend-src-utils-mockratefetcher-ts-for-us-equity-us-stocks-rsu-and-esop-stock-rates-the-current-simulated-values-are-outdated-and-inaccurate-update-the-mock-rate-generator-so-that-it-returns-plausible-realistic-usd-to-inr-converted-stock-prices-for-well-known-us-equities-e-g-typical-large-cap-us-stocks-in-the-range-of-1-000-80-000-per-share-after-inr-conversion-at-a-realistic-exchange-rate-the-generated-values-must-be-clearly-labeled-estimated-rate-in-the-ui-wherever-they-appear-the-fix-must-apply-to-all-places-where-mock-us-stock-rates-are-fetched-the-us-stocks-field-in-the-portfolio-form-and-the-rsu-esop-fetch-rate-buttons",
+      "title": "Fix the mock rate fetcher in `frontend/src/utils/mockRateFetcher.ts` for US equity (US Stocks), RSU, and ESOP stock rates. The current simulated values are outdated and inaccurate. Update the mock rate generator so that it returns plausible, realistic USD-to-INR converted stock prices for well-known US equities (e.g., typical large-cap US stocks in the range of ₹1,000–₹80,000 per share after INR conversion at a realistic exchange rate). The generated values must be clearly labeled 'Estimated Rate' in the UI wherever they appear. The fix must apply to all places where mock US stock rates are fetched: the US Stocks field in the portfolio form, and the RSU/ESOP Fetch Rate buttons.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-perform-a-clean-rebuild-and-redeploy-of-the-entire-application-frontend-and-backend-to-resolve-the-draft-preview-hanging-on-load-ensure-all-previously-implemented-features-are-preserved-and-the-app-loads-successfully-after-deployment",
+      "title": "Perform a clean rebuild and redeploy of the entire application (frontend and backend) to resolve the draft preview hanging on load. Ensure all previously implemented features are preserved and the app loads successfully after deployment.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Total assets, total liabilities, and net worth calculation dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Asset allocation pie chart visualization",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Input fields for Indian equity, US stocks, PF, NPS, gold, FD, home loan, and mutual funds",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Dividend and interest calculation and tracking",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Clean minimal professional design with mobile responsive layout",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create a backend data model and actor to store and manage portfolio entries per user session, including: Indian Equity, US Stocks, Provident Fund (PF), NPS, Gold, Fixed Deposits (FD), Mutual Funds, Home Loan (liability), Dividends received, and Interest earned. Expose update and query functions to persist and retrieve all values.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add RSU (Restricted Stock Units) and ESOP (Employee Stock Option Plan) as additional asset input fields in the portfolio",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Extend the backend Portfolio data model to include two new numeric fields: `rsu` (Restricted Stock Units) and `esop` (Employee Stock Option Plan). Update all relevant actor functions (update, query, dashboard computation) so that RSU and ESOP values are persisted, retrieved, and included in the Total Assets calculation.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Update the Summary Cards (SummaryCards.tsx) and Dashboard (Dashboard.tsx) so that the Total Assets figure includes RSU and ESOP values returned from the backend dashboard computation. The Net Worth figure must also reflect this updated Total Assets.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add monthly tracking for all asset classes — allow users to log portfolio values per month and store historical monthly snapshots",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "For RSU and ESOP: allow input of stock name and quantity; auto-fetch current/lowest-of-month rate from the internet to compute value",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "For gold and silver: allow input in grams; auto-fetch lowest-of-month rate to compute value",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add per-asset-class growth trend charts showing value changes over months",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Extend the backend Portfolio data model to support monthly snapshots. Add a new `MonthlySnapshot` type containing: year (Nat), month (Nat, 1–12), indianEquity (Float), usStocks (Float), pf (Float), nps (Float), gold (Float), goldGrams (Float), silver (Float), silverGrams (Float), fd (Float), mutualFunds (Float), rsu (Float), rsuStockName (Text), rsuQty (Float), rsuRate (Float), esop (Float), esopStockName (Text), esopQty (Float), esopRate (Float), homeLoan (Float), dividends (Float), interest (Float). Store monthly snapshots per user as a stable array. Expose update functions: `saveMonthlySnapshot(snapshot: MonthlySnapshot)` (upsert by year+month per user) and query functions: `getMonthlySnapshots()` returning all snapshots for the calling user sorted by year/month ascending.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Fix mock rate fetcher for US equity (US stocks/RSU/ESOP): ensure simulated rates reflect current/realistic US stock prices, not outdated values",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Portfolio Management",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
